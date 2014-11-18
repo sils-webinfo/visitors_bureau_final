@@ -1,0 +1,17 @@
+<!doctype html>
+<!--where does the form start?  How do we make it dynamic? -->
+<!--URI templates become the values; and create INPUT elements for each property-->
+<link rel="alternate" type="application/json" href="{{ businesses }}.json">
+<title>{{ businesses.name }}</title>
+Name:</br><h1 class="name">{{ businesses.name }}</h1>
+Location:</br><p class="location">{{ businesses.location }}</p>
+URL:</br><p class="URL">{{ businesses.URL }}</p>
+Phone:</br><p class="phone">{{ businesses.phone }}</p>
+Hours:</br><p class="hours">{{ businesses.hours }}</p>
+Rating<:/br><p class="rating">{{ businesses.rating }}</p>
+Description:</br><p class="description">{{ businesses.description }}</p>
+Category:</br><p class="category">{{ businesses.category }}</p>
+<form class="business-editor" enctype="application/json" method="patch">
+	<label>name
+<input class="update" type="submit" value="update/add business">
+</form>
