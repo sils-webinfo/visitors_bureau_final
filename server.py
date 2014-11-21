@@ -31,13 +31,13 @@ def filter_and_sort_helprequests(q='', sort_by='time'):
     key_function = lambda x: x[1][sort_by]
     return sorted(filtered_helprequests, key=key_function, reverse=True)
         
-def render_helprequest_as_html(helprequest):
+def render_helprequest_as_html(helprequest): #CHANGE THESE NAMES IN THE HTML
     return render_template(
         'helprequest.html',
         helprequest=helprequest,
         priorities=reversed(list(enumerate(PRIORITIES))))
     
-def render_helprequest_list_as_html(helprequests):
+def render_helprequest_list_as_html(helprequests): #CHANGE THESE NAMES IN THE HTML
     return render_template(
         'helprequests.html',
         helprequests=helprequests,
