@@ -54,7 +54,7 @@ def nonempty_string(x):
 # specify the data we need to create a new help request
 #
 new_business_parser = reqparse.RequestParser()
-for arg in ['name', 'location', 'description', 'category']:
+for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description', 'category']:
     new_business_parser.add_argument(
        arg, type=nonempty_string, required=True,
        help="'{}' is a required value".format(arg))
@@ -116,7 +116,6 @@ class BusinessList(Resource):
     def post(self): 
         business = new_business_parser.parse_args()
         businesses[generate_id()] = business
-        print businesses
         return make_response(
             render_business_list_as_html(
                 filter_and_sort_businesses()), 201)
