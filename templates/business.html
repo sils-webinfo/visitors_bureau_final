@@ -10,6 +10,18 @@
 
 <p class="location" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">{{ business.location }}</p>
 
+<p class="URL" itempprop="url">{{ business.URL }}</p>
+
+<p class="phone" itemprop="telephone">{{ business.phone }}</p>
+
+<p class="hours" itemprop="openingHours" itemtype="http://schema.org/Duration">{{ business.hours }}</p>
+
+<p class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" itemprop="ratingValue">{{ business.rating }}</p>
+
+<p class="description" itemprop="description" itemtype="http://schema.org/text">{{ business.description }}</p>
+
+<p class="category">{{ business.category }}</p>
+
 <form class="business-editor" enctype="application/json" method="patch">
 Name:
 <input type="text" name="name" value={{ business.name }}><br>
