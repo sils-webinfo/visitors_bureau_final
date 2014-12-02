@@ -116,6 +116,7 @@ class BusinessList(Resource):
     def post(self): 
         business = new_business_parser.parse_args()
         businesses[generate_id()] = business
+        print businesses
         return make_response(
             render_business_list_as_html(
                 filter_and_sort_businesses()), 201)
