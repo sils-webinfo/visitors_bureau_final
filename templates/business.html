@@ -1,6 +1,15 @@
 <!doctype html>
+<html>
 <link rel="alternate" type="application/json" href="{{ business }}.json">
 <title>{{ business.name }}</title>
+
+<body itemscope itemtype="http://schema.org/LocalBusiness"
+          vocab="http://schema.org/"></body>
+          
+<h1 class="name" itemprop="legalName">{{ business.name }}</h1>
+
+<p class="location" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">{{ business.location }}</p>
+
 <form class="business-editor" enctype="application/json" method="patch">
 Name:
 <input type="text" name="name" value={{ business.name }}><br>
@@ -27,3 +36,6 @@ Category:
 <br>
 <input class="update" type="submit" value="update business">
 </form>
+
+</body>
+</html>
