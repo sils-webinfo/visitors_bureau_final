@@ -35,7 +35,9 @@ def render_business_as_html(business):
     return render_template(
         'business.html',
          business=business,
-         categories=reversed(list(enumerate(CATEGORIES))))
+         categories=CATEGORIES)
+         
+#         categories=reversed(list(enumerate(CATEGORIES))))
 
 def render_business_list_as_html(businesses):
     return render_template(
@@ -63,8 +65,8 @@ for arg in ['name', 'location', 'description']:
 #
 #
 update_business_parser = reqparse.RequestParser()
-update_business_parser.add_argument(
-    'category', type=int, default=CATEGORIES.index('shop'))
+#update_business_parser.add_argument(
+ #   'category', type=int, default=CATEGORIES.index('shop'))
 
 #
 # specify the parameters for filtering and sorting help requests
@@ -114,7 +116,7 @@ class BusinessList(Resource):
 
     def post(self): 
         business = new_business_parser.parse_args()
-        business['category'] = CATEGORIES.index('shop')
+  #      business['category'] = CATEGORIES.index('shop')
         businesses[generate_id()] = business
         return make_response(
             render_business_list_as_html(
