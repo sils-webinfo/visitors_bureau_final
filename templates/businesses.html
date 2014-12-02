@@ -50,16 +50,14 @@
   <br>
   <label>Category
   <select name="category">
-    {% for value, label in categories %}
-    <option value="{{ value }}" {% if business.category == value %}selected{% endif %}>
+    {% for label in categories %}
+    <option>
       {{ label }}
     </option>
     {% endfor %}
   </select>
   </label)
   <br>
-  </select>
-  </label>
   <input class="create" type="submit" value="create new business">
 </form>
 
