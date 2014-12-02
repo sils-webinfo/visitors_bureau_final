@@ -36,8 +36,6 @@ def render_business_as_html(business):
         'business.html',
          business=business,
          categories=CATEGORIES)
-         
-#         categories=reversed(list(enumerate(CATEGORIES))))
 
 def render_business_list_as_html(businesses):
     return render_template(
@@ -116,7 +114,6 @@ class BusinessList(Resource):
 
     def post(self): 
         business = new_business_parser.parse_args()
-  #      business['category'] = CATEGORIES.index('shop')
         businesses[generate_id()] = business
         return make_response(
             render_business_list_as_html(
