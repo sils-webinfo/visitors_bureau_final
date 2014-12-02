@@ -112,13 +112,13 @@ class BusinessList(Resource):
                 filter_and_sort_businesses(
                     q=query['q'], sort_by=query['sort-by'])), 200)
 
-def post(self): 
-    business = new_business_parser.parse_args()
-    business['category'] = CATEGORIES.index('shop')
-    businesses[generate_id()] = business
-    return make_response(
-        render_business_list_as_html(
-            filter_and_sort_businesses()), 201)
+    def post(self): 
+        business = new_business_parser.parse_args()
+        business['category'] = CATEGORIES.index('shop')
+        businesses[generate_id()] = business
+        return make_response(
+            render_business_list_as_html(
+                filter_and_sort_businesses()), 201)
 
 class BusinessListAsJSON(Resource):
     def get(self):
