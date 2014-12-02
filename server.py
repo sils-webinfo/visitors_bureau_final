@@ -54,7 +54,7 @@ def nonempty_string(x):
 # specify the data we need to create a new help request
 #
 new_business_parser = reqparse.RequestParser()
-for arg in ['name', 'location', 'description']:
+for arg in ['name', 'location', 'description', 'category']:
     new_business_parser.add_argument(
        arg, type=nonempty_string, required=True,
        help="'{}' is a required value".format(arg))
