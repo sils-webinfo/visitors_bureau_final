@@ -63,7 +63,7 @@ for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description'
 # specify the data we need to update an existing help request
 #
 #
-update_business_parser = reqparse.RequestParser()
+#update_business_parser = reqparse.RequestParser()
 #update_business_parser.add_argument(
  #   'category', type=int, default=CATEGORIES.index('shop'))
 
@@ -88,7 +88,7 @@ class Business(Resource):
     def patch(self, business_id):
         error_if_business_not_found(business_id)
         business=businesses[business_id]
-        update = update_business_parser#.parse_args()
+        update = update_business_parser.parse_args()
         business['name'] = update['name']
         business['location'] = update['location']
         business['URL'] = update['URL']
