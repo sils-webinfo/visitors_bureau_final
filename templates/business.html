@@ -47,6 +47,17 @@ Category:
 </select>
 <br>
 <input class="update" type="submit" value="update business">
+<script>
+          var form = document.querySelector('form.business-editor');
+          var button = document.querySelector('form.business-editor input.update');
+          
+          button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var request = new XMLHttpRequest();
+                    request.open('PATCH', window.location.pathname);
+                    request.send(new FormData(form));
+          }, false);
+</script>
 </form>
 
 </body>
