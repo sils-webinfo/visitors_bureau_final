@@ -1,1 +1,18 @@
 <!doctype html>
+<html>
+<link rel="alternative" type="application/json" href="{{ request.path }}.json">
+<body>
+<title>All Events</title>
+
+<ol>
+  {% for event_id, event in events %}
+  <li>
+    <a rel="item" href="{{ url_for('event', event_id=event_id) }}">
+      {{ event.name }}
+    </a>
+  </li>
+  {% endfor %}
+</ol>
+<a rel="collection" href="{{ url_for('eventlist') }}">all events</a>
+</body>
+</html>
