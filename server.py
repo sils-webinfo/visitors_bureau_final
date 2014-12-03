@@ -179,7 +179,7 @@ class EventList(Resource):
     def get(self):
         query = query_parser.parse_args()
         return make_response(
-            return_event_list_as_html(
+            render_event_list_as_html(
                 filter_and_sort_events(
                     q=query['q'], sort_by=query['sort-by'])), 200)
                     
