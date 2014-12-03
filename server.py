@@ -12,6 +12,8 @@ CATEGORIES = ( 'shop', 'restaurant', 'bar', 'club' )
 # load business data from disk, load into dictionary (key/value)
 with open('businesses.json') as data:
     businesses = json.load(data)
+with open('events.json') as data:
+    events = json.load(data)
 
 #
 # define some helper functions
@@ -24,13 +26,25 @@ def error_if_business_not_found(business_id):
         message = "Business {} doesn't exist".format(business_id)    
         abort(404, message)
 
+def error_if_event_not_found(event_id):
+    if event_id not in events:
+        message = "Event {} doesn't exist".format(event_id)
+        abort(404, message)
+
 def filter_and_sort_businesses(q='', sort_by='category'):
     filter_function = lambda x: q.lower() in (
         x[1]['name'] + x[1]['description']).lower()
     filtered_businesses = filter(filter_function, businesses.items())
     key_function = lambda x: x[1][sort_by]
     return sorted(filtered_businesses, key=key_function)
-        
+    
+def filter_and_sort_events(q='', sort_by='date'):
+    filter_function = lambda x: q.lower() in (
+        x[1]['name'] + x[1]['location']).lower()
+    filtered_events = filter(filter_function, events.items())
+    key_function = lambda x: x[1][sort_by]
+    return sorted(filtered_events, key=key_function)
+    
 def render_business_as_html(business):
     return render_template(
         'business.html',
@@ -42,6 +56,16 @@ def render_business_list_as_html(businesses):
         'businesses.html',
         businesses=businesses,
         categories=CATEGORIES)
+
+def render_event_as_html(event):
+    return render_template(
+        'event.html',
+        event=event)
+        
+def render_event_list_as_html(events):
+    return render_template(
+        'events.html',
+        events=events)
 
 def nonempty_string(x):
     s = str(x)
@@ -58,6 +82,12 @@ for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description'
        arg, type=nonempty_string, required=True,
        help="'{}' is a required value".format(arg))
 
+new_event_parser = reqparse-RequestParser()
+for arg in ['name', 'location', 'venue', 'URL', 'date', 'time', 'phone', 'description']:
+    new_event_parser.add_argument(
+        arg, type=nonempty_string, required=True,
+        help="'{}' is a required value".format(arg))
+
 #
 # specify the data we need to update an existing help request
 #
@@ -65,6 +95,9 @@ for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description'
 update_business_parser = reqparse.RequestParser()
 #update_business_parser.add_argument(
  #   'category', type=int, default=CATEGORIES.index('shop'))
+
+update_event_parser = reqparse.RequestParser()
+
 
 #
 # specify the parameters for filtering and sorting help requests
@@ -74,7 +107,13 @@ query_parser.add_argument(
     'q', type=str, default='')
 query_parser.add_argument(
     'sort-by', type=str, choices=('category'), default='category')
-        
+
+query_parser = reqparse.RequestParser()
+query_parser.add_argument(
+    'q', type=str, default='')
+query_parser.add_argument(
+    'sort-by', type=str, choices=('date'), default='time')
+
 #
 # define our (kinds of) resources
 #
@@ -99,11 +138,28 @@ class Business(Resource):
         return make_response(
             render_business_as_html(business), 200)
 
+class Event(Resource):
+    def get(self, event_id):
+        error_if_event_not_found(event_id)
+        return make_response(
+            render_event_as_html(events[event_id]), 200)
+            
+    def patch(self, business_id):
+        error_if_event_not_found(event_id)
+        event=events[event_id]
+        update = update_event_parser.parse_args()
+#       event['name'] = update['name']
+
 class BusinessAsJSON(Resource):
     def get(self, business_id):
         error_if_business_not_found(business_id)
         return businesses[business_id]
     
+class EventAsJSON(Resource):
+    def get(self, business_id):
+        error_if_event_not_found(event_id)
+        return events[event_id]
+        
 class BusinessList(Resource):
     def get(self):
         query = query_parser.parse_args()
@@ -119,10 +175,28 @@ class BusinessList(Resource):
             render_business_list_as_html(
                 filter_and_sort_businesses()), 201)
 
+class EventList(Resource):
+    def get(self):
+        query = query_parser.parse_args()
+        return make_response(
+            return_event_list_as_html(
+                filter_and_sort_events(
+                    q=query['q'], sort_by=query['sort-by'])), 200)
+                    
+    def post(self):
+        event = new_event_parser.parse_args()
+        events[generate_id()] = event
+        return make_response(
+            render_event_list_as_html(
+                filter_and_sort_events()), 201)
+
 class BusinessListAsJSON(Resource):
     def get(self):
         return businesses
 
+class EventListAsJSON(Resource):
+    def get(self):
+        return events
 #
 # assign URL paths to our resources
 #
@@ -132,6 +206,10 @@ api.add_resource(BusinessList, '/businesses')
 api.add_resource(BusinessListAsJSON, '/businesses.json')
 api.add_resource(Business, '/business/<string:business_id>')
 api.add_resource(BusinessAsJSON, '/business/<string:business_id>.json')
+api.add_resource(EventList, '/events')
+api.add_resource(EventListAsJSON, '/events.json')
+api.add_resource(Event, '/event/<string:event_id>')
+api.add_resource(EventAsJSON, '/event/<string:event_id>.json')
 
 # start the server
 if __name__ == '__main__':
