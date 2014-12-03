@@ -38,12 +38,12 @@ def filter_and_sort_businesses(q='', sort_by='category'):
     key_function = lambda x: x[1][sort_by]
     return sorted(filtered_businesses, key=key_function)
     
-def filter_and_sort_events(q='', sort_by='date'):
-    filter_function = lambda x: q.lower() in (
-        x[1]['name'] + x[1]['location']).lower()
-    filtered_events = filter(filter_function, events.items())
-    key_function = lambda x: x[1][sort_by]
-    return sorted(filtered_events, key=key_function)
+#def filter_and_sort_events(q='', sort_by='date'):
+#    filter_function = lambda x: q.lower() in (
+#        x[1]['name'] + x[1]['location']).lower()
+#    filtered_events = filter(filter_function, events.items())
+#    key_function = lambda x: x[1][sort_by]
+#    return sorted(filtered_events, key=key_function)
     
 def render_business_as_html(business):
     return render_template(
