@@ -82,7 +82,7 @@ for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description'
        arg, type=nonempty_string, required=True,
        help="'{}' is a required value".format(arg))
 
-new_event_parser = reqparse_RequestParser()
+new_event_parser = reqparse.RequestParser()
 for arg in ['name', 'location', 'venue', 'URL', 'date', 'time', 'phone', 'description']:
     new_event_parser.add_argument(
         arg, type=nonempty_string, required=True,
