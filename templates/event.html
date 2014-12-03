@@ -1,5 +1,7 @@
 <!doctype html>
 <link rel="alternate" type="application/json" href="{{ events }}.json">
+<html>
+<body>
 <title>{{ event.name }}</title>
 <body itemscope itemtype="http://schema.org/Event"
           vocab="http://schema.org/">
@@ -38,3 +40,6 @@ Description:
 <input type="text" name="description" value={{ events.description }}><br>
 <input class="update" type="submit" value="update event">
 </form>
+<a rel="collection" href="{{ url_for('eventlist') }}">All Events</a>
+</body>
+</html>
