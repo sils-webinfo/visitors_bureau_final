@@ -1,6 +1,25 @@
 <!doctype html>
 <link rel="alternate" type="application/json" href="{{ events }}.json">
 <title>{{ event.name }}</title>
+<body itemscope itemtype="http://schema.org/Event"
+          vocab="http://schema.org/">
+          
+<h1 class="name" itemprop="name" value={{ events.name }}</h1>
+
+<p class="location" itemprop="location" itemscope itemtype="http://schema.org/PostalAddress" value={{ events.location }}</p>
+
+<p class="venue" itemtype="Place" value={{ events.venue }}></p>
+
+<p class="URL" itempprop="url"{{ events.URL }}></p>
+
+<p class="date" itemprop="startDate" value={{ events.date }}></p>
+
+<p class="time" itemprop="doorTime" itemtype="http://schema.org/DateTime" value={{ events.time }}></p>
+
+<p class="phone" itemscope itemprop="telephone" itemtype="Text" value={{ events.phone }}></p>
+
+<p class="description" itemprop="description" value={{ events.description }}></p>
+
 <form class="event-editor" enctype="application/json" method="patch">
 Name:
 <input type="text" name="name" value={{ events.name }}><br>
