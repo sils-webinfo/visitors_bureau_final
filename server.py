@@ -82,7 +82,7 @@ class Business(Resource):
     def get(self, business_id):
         error_if_business_not_found(business_id)
         return make_response(
-            render_business_as_html(businesses[business_id]), 200) #gives the (a dictionary) we need 2 lists and two single item class definitions; start by just implementing GET methods
+            render_business_as_html(business[business_id]), 200) #gives the (a dictionary) we need 2 lists and two single item class definitions; start by just implementing GET methods
 
     def patch(self, business_id):
         error_if_business_not_found(business_id)
