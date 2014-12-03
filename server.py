@@ -30,7 +30,6 @@ def filter_and_sort_businesses(q='', sort_by='category'):
     filtered_businesses = filter(filter_function, businesses.items())
     key_function = lambda x: x[1][sort_by]
     return sorted(filtered_businesses, key=key_function)
-    #, reverse=True)
         
 def render_business_as_html(business):
     return render_template(
@@ -63,7 +62,7 @@ for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description'
 # specify the data we need to update an existing help request
 #
 #
-#update_business_parser = reqparse.RequestParser()
+update_business_parser = reqparse.RequestParser()
 #update_business_parser.add_argument(
  #   'category', type=int, default=CATEGORIES.index('shop'))
 
