@@ -21,35 +21,6 @@
 
 <p class="description" itemprop="description" value={{ event.description }}></p>
 
-<form class="event-editor" enctype="application/json" method="patch">
-Name:
-<input type="text" name="name" value={{ event.name }}><br>
-<!--do we want to include venues...? some events might not have a venue-->
-Venue:
-<input type="text" name="venue" value={{ event.venue }}><br>
-Location:
-<input type="text" name="location" value={{ event.location }}><br>
-Date:
-<input type="text" name="date" value={{ event.date }}><br>
-Time:
-<input type="text" name="time" value={{ event.time }}><br>
-Phone:
-<input type="text" name="phone" value={{ event.phone }}><br>
-Description:
-<input type="text" name="description" value={{ event.description }}><br>
-<input class="update" type="submit" value="update event">
-<script>
-          var form = document.querySelector('form.event-editor');
-          var button = document.querySelector('form.event-editor input.update');
-          
-          button.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    var request = new XMLHttpRequest();
-                    request.open('PATCH', window.location.pathname);
-                    request.send(new FormData(form));
-          }, false);
-</script>
-</form>
 <a rel="collection" href="{{ url_for('eventlist') }}">All Events</a>
 <a rel="collection" href="{{ url_for('businesslist') }}">All Businesses</a>
 </body>
