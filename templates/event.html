@@ -2,24 +2,25 @@
 <link rel="alternate" type="application/json" href="{{ event }}.json">
 <html>
 <title>{{ event.name }}</title>
+
 <body itemscope itemtype="http://schema.org/Event"
           vocab="http://schema.org/">
           
-<h1 class="name" itemprop="name" value={{ event.name }}</h1>
+<h1 class="name" itemprop="name">{{ event.name }}</h1>
 
-<p class="location" itemprop="location" itemscope itemtype="http://schema.org/PostalAddress" value={{ event.location }}</p>
+<p class="location" itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">{{ event.location }}</p>
 
-<p class="venue" itemtype="Place" value={{ event.venue }}></p>
+<p class="venue" itemtype="Place">{{ event.venue }}></p>
 
-<p class="URL" itemprop="url"{{ event.URL }}></p>
+<p class="URL" itemprop="url">{{ event.URL }}></p>
 
-<p class="date" itemprop="startDate" value={{ event.date }}></p>
+<p class="date" itemprop="startDate">{{ event.date }}></p>
 
-<p class="time" itemprop="doorTime" itemtype="http://schema.org/DateTime" value={{ event.time }}></p>
+<p class="time" itemprop="doorTime" itemtype="http://schema.org/DateTime">{{ event.time }}></p>
 
-<p class="phone" itemscope itemprop="telephone" itemtype="Text" value={{ event.phone }}></p>
+<p class="phone" itemscope itemprop="telephone" itemtype="Text">{{ event.phone }}></p>
 
-<p class="description" itemprop="description" value={{ event.description }}></p>
+<p class="description" itemprop="description">{{ event.description }}></p>
 
 <a rel="collection" href="{{ url_for('eventlist') }}">All Events</a>
 <a rel="collection" href="{{ url_for('businesslist') }}">All Businesses</a>
