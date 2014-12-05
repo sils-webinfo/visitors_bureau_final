@@ -108,14 +108,14 @@ class Business(Resource):
         error_if_business_not_found(business_id)
         business=businesses[business_id]
         update = update_business_parser.parse_args()
-        business[{{ business.name }}] = update[{{ business.name }}]
-#        business['location'] = update['location']
-#        business['URL'] = update['URL']
-#       business['phone'] = update['phone']
-#        business['hours'] = update['hours']
-#        business['rating'] = update['rating']
-#        business['description'] = update['description']
-#        business['category'] = update['category']
+        business['name']= update['name']
+        business['location'] = update['location']
+        business['URL'] = update['URL']
+       business['phone'] = update['phone']
+        business['hours'] = update['hours']
+        business['rating'] = update['rating']
+        business['description'] = update['description']
+        business['category'] = update['category']
         return make_response(
             render_business_as_html(business), 200)
 
