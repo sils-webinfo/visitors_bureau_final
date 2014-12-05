@@ -145,25 +145,25 @@ class BusinessList(Resource):
     def get(self):
         query = query_parser.parse_args()
         return make_response(
-            render_business_list_as_html(), 200)
+            render_business_list_as_html(businesses), 200)
 
     def post(self): 
         business = new_business_parser.parse_args()
         businesses[generate_id()] = business
         return make_response(
-            render_business_list_as_html(), 201)
+            render_business_list_as_html(businesses), 201)
 
 class EventList(Resource):
     def get(self):
         query = query_parser.parse_args()
         return make_response(
-            render_event_list_as_html(), 200)
+            render_event_list_as_html(events), 200)
                     
     def post(self):
         event = new_event_parser.parse_args()
         events[generate_id()] = event
         return make_response(
-            render_event_list_as_html(), 201)
+            render_event_list_as_html(events), 201)
 
 class BusinessListAsJSON(Resource):
     def get(self):
