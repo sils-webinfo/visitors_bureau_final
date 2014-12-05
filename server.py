@@ -80,6 +80,23 @@ for arg in ['name', 'location', 'venue', 'URL', 'date', 'time', 'phone', 'descri
 #
 #
 update_business_parser = reqparse.RequestParser()
+update_business_parser.add_argument(
+    'name', type=str)
+update_business_parser.add_argument(
+    'location', type=str)
+update_business_parser.add_argument(
+    'URL', type=str)
+update_business_parser.add_argument(
+    'phone', type=str)
+update_business_parser.add_argument(
+    'hours', type=str)
+update_business_parser.add_argument(
+    'rating', type=str)
+update_business_parser.add_argument(
+    'description', type=str)
+update_business_parser.add_argument(
+    'category', type=select))
+
 
 update_event_parser = reqparse.RequestParser()
 
