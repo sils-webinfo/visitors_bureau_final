@@ -24,23 +24,23 @@
 
 <form class="business-editor" enctype="application/json" method="patch">
 Name:
-<input type="text" name="name" value={{ business.name }}><br>
+<input type="text" name="name" value="{{ business.name }}"><br>
 Location:
-<input type="text" name="location" value={{ business.location }}><br>
+<input type="text" name="location" value="{{ business.location }}"><br>
 URL:
-<input type="text" name="URL" value={{ business.URL }}><br>
+<input type="text" name="URL" value="{{ business.URL }}"><br>
 Phone:
-<input type="text" name="phone" value={{ business.phone }}><br>
+<input type="text" name="phone" value="{{ business.phone }}"><br>
 Hours:
-<input type="text" name="hours" value={{ business.hours }}><br>
+<input type="text" name="hours" value="{{ business.hours }}"><br>
 Rating:
-<input type="text" name="rating" value={{ business.rating }}><br>
+<input type="text" name="rating" value="{{ business.rating }}"><br>
 Description:
-<input type="text" name="description" value={{ business.description }}><br>
+<input type="text" name="description" value="{{ business.description }}"><br>
 Category:
 <select name="category">
   {% for label in categories %}
-  <option value={{ business.category }} {% if business.category == label %}selected{% endif %}>
+  <option value="{{ business.category }}" {% if business.category == label %}selected{% endif %}>
     {{ label }}
   </option>
   {% endfor %}
