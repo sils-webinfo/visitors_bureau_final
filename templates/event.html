@@ -18,7 +18,8 @@
 
 <p class="time" itemprop="doorTime" itemtype="http://schema.org/DateTime">{{ event.time }}</p>
 
-<p class="phone" itemscope itemprop="telephone" itemtype="Text">{{ event.phone }}</p>
+<p class="phone" itemprop="organizer" itemscope itemtype="Person">
+          <span itemprop="telephone">{{ event.phone }}</span></p>
 
 <p class="description" itemprop="description">{{ event.description }}</p>
 
