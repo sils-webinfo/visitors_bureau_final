@@ -111,7 +111,7 @@ class Business(Resource):
         business['name']= update['name']
         business['location'] = update['location']
         business['URL'] = update['URL']
-       business['phone'] = update['phone']
+        business['phone'] = update['phone']
         business['hours'] = update['hours']
         business['rating'] = update['rating']
         business['description'] = update['description']
