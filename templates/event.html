@@ -10,17 +10,17 @@
 
 <p class="location" itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">{{ event.location }}</p>
 
-<p class="venue" itemtype="Place">{{ event.venue }}></p>
+<p class="venue" itemtype="Place">{{ event.venue }}</p>
 
-<p class="URL" itemprop="url">{{ event.URL }}></p>
+<p class="URL" itemprop="url">{{ event.URL }}</p>
 
-<p class="date" itemprop="startDate">{{ event.date }}></p>
+<p class="date" itemprop="startDate">{{ event.date }}</p>
 
-<p class="time" itemprop="doorTime" itemtype="http://schema.org/DateTime">{{ event.time }}></p>
+<p class="time" itemprop="doorTime" itemtype="http://schema.org/DateTime">{{ event.time }}</p>
 
-<p class="phone" itemscope itemprop="telephone" itemtype="Text">{{ event.phone }}></p>
+<p class="phone" itemscope itemprop="telephone" itemtype="Text">{{ event.phone }}</p>
 
-<p class="description" itemprop="description">{{ event.description }}></p>
+<p class="description" itemprop="description">{{ event.description }}</p>
 
 <a rel="collection" href="{{ url_for('eventlist') }}">All Events</a>
 <a rel="collection" href="{{ url_for('businesslist') }}">All Businesses</a>
