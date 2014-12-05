@@ -95,7 +95,7 @@ update_business_parser.add_argument(
 update_business_parser.add_argument(
     'description', type=str)
 update_business_parser.add_argument(
-    'category', type=select)
+    'category', type=str)
 
 
 update_event_parser = reqparse.RequestParser()
