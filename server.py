@@ -31,13 +31,7 @@ def error_if_event_not_found(event_id):
         message = "Event {} doesn't exist".format(event_id)
         abort(404, message)
 
-def filter_and_sort_businesses(q='', sort_by='category'):
-    filter_function = lambda x: q.lower() in (
-        x[1]['name'] + x[1]['description']).lower()
-    filtered_businesses = filter(filter_function, businesses.items())
-    key_function = lambda x: x[1][sort_by]
-    return sorted(filtered_businesses, key=key_function)
-    
+
 def render_business_as_html(business):
     return render_template(
         'business.html',
@@ -86,8 +80,6 @@ for arg in ['name', 'location', 'venue', 'URL', 'date', 'time', 'phone', 'descri
 #
 #
 update_business_parser = reqparse.RequestParser()
-#update_business_parser.add_argument(
- #   'category', type=int, default=CATEGORIES.index('shop'))
 
 update_event_parser = reqparse.RequestParser()
 
@@ -98,8 +90,6 @@ update_event_parser = reqparse.RequestParser()
 query_parser = reqparse.RequestParser()
 query_parser.add_argument(
     'q', type=str, default='')
-query_parser.add_argument(
-    'sort-by', type=str, choices=('category'), default='category')
 
 query_parser = reqparse.RequestParser()
 query_parser.add_argument(
@@ -155,24 +145,19 @@ class BusinessList(Resource):
     def get(self):
         query = query_parser.parse_args()
         return make_response(
-            render_business_list_as_html(
-                filter_and_sort_businesses(
-                    q=query['q'], sort_by=query['sort-by'])), 200)
+            render_business_list_as_html(), 200)
 
     def post(self): 
         business = new_business_parser.parse_args()
         businesses[generate_id()] = business
         return make_response(
-            render_business_list_as_html(
-                filter_and_sort_businesses()), 201)
+            render_business_list_as_html(), 201)
 
 class EventList(Resource):
     def get(self):
         query = query_parser.parse_args()
         return make_response(
-            render_event_list_as_html(
-                filter_and_sort_events(
-                    q=query['q'], sort_by=query['sort-by'])), 200)
+            render_event_list_as_html(), 200)
                     
     def post(self):
         event = new_event_parser.parse_args()
