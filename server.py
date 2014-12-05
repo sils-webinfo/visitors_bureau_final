@@ -38,13 +38,6 @@ def filter_and_sort_businesses(q='', sort_by='category'):
     key_function = lambda x: x[1][sort_by]
     return sorted(filtered_businesses, key=key_function)
     
-def filter_and_sort_events(q='', sort_by='date'):
-    filter_function = lambda x: q.lower() in (
-    x[1]['name'] + x[1]['location']).lower()
-    filtered_events = filter(filter_function, events.items())
-    key_function = lambda x: x[1][sort_by]
-    return sorted(filtered_events, key=key_function)
-    
 def render_business_as_html(business):
     return render_template(
         'business.html',
@@ -111,8 +104,6 @@ query_parser.add_argument(
 query_parser = reqparse.RequestParser()
 query_parser.add_argument(
     'q', type=str, default='')
-query_parser.add_argument(
-    'sort-by', type=str, choices=('date'), default='time')
 
 #
 # define our (kinds of) resources
@@ -187,8 +178,7 @@ class EventList(Resource):
         event = new_event_parser.parse_args()
         events[generate_id()] = event
         return make_response(
-            render_event_list_as_html(
-                filter_and_sort_events()), 201)
+            render_event_list_as_html(), 201)
 
 class BusinessListAsJSON(Resource):
     def get(self):
