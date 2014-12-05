@@ -4,7 +4,7 @@
 <body>
 <title>All Events</title>
 <ol>
-  {% for event_id, event in events %}
+  {% for event_id, event in events.items() %}
   <li>
     <a rel="item" href="{{ url_for('event', event_id=event_id) }}">
       {{ event.name }}
