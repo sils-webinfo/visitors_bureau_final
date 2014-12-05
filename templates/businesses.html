@@ -2,8 +2,7 @@
 <link rel="alternate" type="application/json" href="{{ request.path }}.json">
 <title>All Businesses</title>
 <ol>
-{{ businesses }}
-  {% for  business in businesses %}
+  {% for business_id, business in businesses.items %}
   <li>
     Category: {{ categories[business.category] }}
     <a rel="item" href="{{ url_for('business', business_id=business_id) }}">
