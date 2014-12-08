@@ -6,7 +6,7 @@ import string
 import random
 from datetime import datetime
 
-# define our categories
+# define our categories used for business resources
 CATEGORIES = ( 'shop', 'restaurant', 'bar', 'club' )
 
 # load business data from disk, load into dictionary (key/value)
@@ -61,7 +61,7 @@ def nonempty_string(x):
     return s
 
 #
-# specify the data we need to create a new help request
+# specify the data we need to create a new business
 #
 new_business_parser = reqparse.RequestParser()
 for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description', 'category']:
@@ -69,6 +69,9 @@ for arg in ['name', 'location', 'URL', 'phone', 'hours', 'rating', 'description'
        arg, type=nonempty_string, required=True,
        help="'{}' is a required value".format(arg))
 
+#
+# specify the data we need to create a new event
+#
 new_event_parser = reqparse.RequestParser()
 for arg in ['name', 'location', 'venue', 'URL', 'date', 'time', 'description']:
     new_event_parser.add_argument(
@@ -76,8 +79,7 @@ for arg in ['name', 'location', 'venue', 'URL', 'date', 'time', 'description']:
         help="'{}' is a required value".format(arg))
 
 #
-# specify the data we need to update an existing help request
-#
+# specify the data we need to update an existing business
 #
 update_business_parser = reqparse.RequestParser()
 update_business_parser.add_argument(
@@ -97,17 +99,15 @@ update_business_parser.add_argument(
 update_business_parser.add_argument(
     'category', type=str)
 
-
+#
+# specify the data we need to update an existing event
+#
 update_event_parser = reqparse.RequestParser()
 
 
 #
-# specify the parameters for filtering and sorting help requests
+# specify the parameters for filtering and sorting businesses and events
 #
-query_parser = reqparse.RequestParser()
-query_parser.add_argument(
-    'q', type=str, default='')
-
 query_parser = reqparse.RequestParser()
 query_parser.add_argument(
     'q', type=str, default='')
@@ -119,7 +119,7 @@ class Business(Resource):
     def get(self, business_id):
         error_if_business_not_found(business_id)
         return make_response(
-            render_business_as_html(businesses[business_id]), 200) #gives the (a dictionary) we need 2 lists and two single item class definitions; start by just implementing GET methods
+            render_business_as_html(businesses[business_id]), 200)
 
     def patch(self, business_id):
         error_if_business_not_found(business_id)
@@ -136,28 +136,11 @@ class Business(Resource):
         return make_response(
             render_business_as_html(business), 200)
 
-class Event(Resource):
-    def get(self, event_id):
-        error_if_event_not_found(event_id)
-        return make_response(
-            render_event_as_html(events[event_id]), 200)
-            
-    def patch(self, business_id):
-        error_if_event_not_found(event_id)
-        event=events[event_id]
-        update = update_event_parser.parse_args()
-#       event['name'] = update['name']
-
 class BusinessAsJSON(Resource):
     def get(self, business_id):
         error_if_business_not_found(business_id)
         return businesses[business_id]
     
-class EventAsJSON(Resource):
-    def get(self, business_id):
-        error_if_event_not_found(event_id)
-        return events[event_id]
-        
 class BusinessList(Resource):
     def get(self):
         query = query_parser.parse_args()
@@ -170,6 +153,27 @@ class BusinessList(Resource):
         return make_response(
             render_business_list_as_html(businesses), 201)
 
+class BusinessListAsJSON(Resource):
+    def get(self):
+        return businesses
+
+class Event(Resource):
+    def get(self, event_id):
+        error_if_event_not_found(event_id)
+        return make_response(
+            render_event_as_html(events[event_id]), 200)
+            
+    def patch(self, business_id):
+        error_if_event_not_found(event_id)
+        event=events[event_id]
+        update = update_event_parser.parse_args()
+#       event['name'] = update['name']
+
+class EventAsJSON(Resource):
+    def get(self, business_id):
+        error_if_event_not_found(event_id)
+        return events[event_id]
+
 class EventList(Resource):
     def get(self):
         query = query_parser.parse_args()
@@ -181,10 +185,6 @@ class EventList(Resource):
         events[generate_id()] = event
         return make_response(
             render_event_list_as_html(events), 201)
-
-class BusinessListAsJSON(Resource):
-    def get(self):
-        return businesses
 
 class EventListAsJSON(Resource):
     def get(self):
