@@ -1,10 +1,13 @@
 <!doctype html>
+<html>
+<body>
 <link rel="alternate" type="application/json" href="{{ request.path }}.json">
 <title>All Businesses</title>
+<h1>All Businesses</h1>
 <ol>
   {% for business_id, business in businesses.items() %}
   <li>
-    Category: {{ categories[business.category] }}
+    Category: {{ business.category }}
     <a rel="item" href="{{ url_for('business', business_id=business_id) }}">
       {{ business.name }}
     </a>
@@ -52,5 +55,7 @@
   <br>
   <input class="create" type="submit" value="create new business">
 </form>
-
+<br>
 <a rel="collection" href="{{ url_for('eventlist') }}">all events</a>
+</body>
+</html>
