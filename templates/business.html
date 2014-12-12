@@ -48,7 +48,7 @@ Description:
 Category:
 <select name="category">
   {% for label in categories %}
-  <option value="{{ business.category }}" {% if business.category == label %}selected{% endif %}>
+  <option {% if business.category == label %}selected{% endif %}>
     {{ label }}
   </option>
   {% endfor %}
