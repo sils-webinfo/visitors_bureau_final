@@ -4,6 +4,7 @@ from flask.ext.restful import Api, Resource, reqparse
 import json
 import string
 import random
+import rdflib
 from datetime import datetime
 
 # define our categories used for business resources
@@ -112,14 +113,24 @@ query_parser = reqparse.RequestParser()
 query_parser.add_argument(
     'q', type=str, default='')
 
+dcterms = rdflib.Namespace("http://purl.org/dc/terms/")
+
 #
 # define our (kinds of) resources
 #
 class Business(Resource):
     def get(self, business_id):
         error_if_business_not_found(business_id)
+        business = businesses[business_id]
+        if business['category'] == 'restaurant':
+            url = 'http://aeshin.org:7890/list_of_menus?q={}'.format(business['name'])
+            graph = rdflib.Graph()
+            graph.parse(url)
+            business['menu_links'] = []
+            for s,o in graph.subject_objects(predicate=dcterms.description):
+                business['menu_links'].append({ 'text': str(o), 'href': str(s) })
         return make_response(
-            render_business_as_html(businesses[business_id]), 200)
+            render_business_as_html(business), 200)
 
     def patch(self, business_id):
         error_if_business_not_found(business_id)

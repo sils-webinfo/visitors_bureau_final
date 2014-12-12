@@ -22,6 +22,14 @@
 
 <p class="category">{{ business.category }}</p>
 
+{% if business.category == 'restaurant' %}
+<ul>
+{% for link in business.menu_links %}
+<li><a href="{{ link.href }}">{{ link.text }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
 <form class="business-editor" enctype="application/json" method="patch">
 Name:
 <input type="text" name="name" value="{{ business.name }}"><br>
